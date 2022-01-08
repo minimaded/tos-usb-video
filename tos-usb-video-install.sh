@@ -4,7 +4,7 @@ get_raspi2fb() {
     echo "Installing raspi2fb..."
     echo
     sudo mkdir -p /usr/lib/tos-usb-video || install_notdone
-    sudo wget -O /usr/lib/tos-usb-video/raspi2fb https://github.com/minimaded/tos-usb-video/raw/main/raspi2fb || install_notdone
+    sudo wget -O /usr/lib/tos-usb-video/raspi2fb https://github.com/minimaded/tos-usb-video/raw/main/raspi2f || install_notdone
     sudo chmod +x /usr/lib/tos-usb-video/raspi2fb || install_notdone
 }
 
@@ -55,13 +55,12 @@ EOF
 
 install_done() {
     echo
-    read -r -p "Install completed, press any key to exit... " -n1 -s
-    exit 1  
+    echo "Install completed, press any key to exit... "
 }
 
 install_notdone() {
     echo
-    read -r -p "Install failed, press any key to exit... " -n1 -s
+    echo "Install failed, press any key to exit... "
     exit 1  
 }
 
