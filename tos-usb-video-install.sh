@@ -2,12 +2,12 @@
 
 os_version() {
     osversion=$(cat /etc/os-release | grep VERSION_CODENAME | cut -f2 -d'=')
-    case "${osversion}" in
-        buster | bullseye)
+    case "$osversion" in
+        buster | bullseye )
             echo "OS version is ${osversion}"
             echo
         ;;
-        *)
+        * )
             echo "OS version is ${osversion} is not supported"
             echo
             install_notdone
