@@ -65,9 +65,7 @@ hdmi_group=1
 hdmi_mode=4
 EOF
 
-    sudo systemctl daemon-reload || install_notdone
 }
-
 
 install_done() {
     echo
