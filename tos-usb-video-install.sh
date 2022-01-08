@@ -11,7 +11,7 @@ get_raspi2fb() {
 install_script() {
     echo "Creating tos-usb-video.sh script..."
     echo
-    cat << EOF | sudo tee "/usr/lib/tos-usb-video/tos-usb-video.sh" >/dev/null || update_notdone
+    cat << EOF | sudo tee "/usr/lib/tos-usb-video/tos-usb-video.sh" >/dev/null || install_notdone
 #!/bin/bash
 
 if [ -e /dev/tos-usb-video ] ; then {
@@ -28,11 +28,11 @@ EOF
 udev_rules() {
     echo "Adding udev rules..."
     echo
-    cat << EOF | sudo tee "/etc/udev/rules.d/99-tos-usb-video-add.rules" >/dev/null || update_notdone
+    cat << EOF | sudo tee "/etc/udev/rules.d/99-tos-usb-video-add.rules" >/dev/null || install_notdone
 ACTION=="add", SUBSYSTEM=="graphics", ATTRS{idVendor}=="17e9", ATTRS{idProduct}=="03a6", SYMLINK+="tos-usb-video", RUN{program}="/bin/systemctl start tos-usb-video.service"
 EOF
 
-    cat << EOF | sudo tee "sudo nano /etc/udev/rules.d/99-tos-usb-video-remove.rules" >/dev/null || update_notdone
+    cat << EOF | sudo tee "/etc/udev/rules.d/99-tos-usb-video-remove.rules" >/dev/null || install_notdone
 ACTION=="add", SUBSYSTEM=="graphics", ATTRS{idVendor}=="17e9", ATTRS{idProduct}=="03a6", SYMLINK+="tos-usb-video", RUN{program}="/bin/systemctl start tos-usb-video.service"
 EOF
 
@@ -42,7 +42,7 @@ EOF
 systemd_service() {
     echo "Adding systemd service..."
     echo
-    cat << EOF | sudo tee "/etc/systemd/system/tos-usb-video.service" >/dev/null || update_notdone
+    cat << EOF | sudo tee "/etc/systemd/system/tos-usb-video.service" >/dev/null || install_notdone
 [Unit]
 Description=HotSwap Toshiba DisplayLink Monitor
 
