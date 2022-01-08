@@ -4,7 +4,7 @@ get_raspi2fb() {
     echo "Installing raspi2fb..."
     echo
     sudo mkdir -p /usr/lib/tos-usb-video || install_notdone
-    sudo wget -O /usr/lib/tos-usb-video/raspi2fb https://github.com/minimaded/tos-usb-video/raw/main/raspi2f || install_notdone
+    sudo wget -O /usr/lib/tos-usb-video/raspi2fb https://github.com/minimaded/tos-usb-video/raw/main/raspi2fb || install_notdone
     sudo chmod +x /usr/lib/tos-usb-video/raspi2fb || install_notdone
 }
 
@@ -53,14 +53,30 @@ EOF
     sudo systemctl daemon-reload || install_notdone
 }
 
+display_settings() {
+    echo "Setting display settings..."
+    echo
+    cat << EOF | sudo tee -a "/boot/config.txt" >/dev/null || install_notdone
+gpu_mem_256=128
+gpu_mem_512=256
+gpu_mem_1024=256
+hdmi_force_hotplug=1
+hdmi_group=1
+hdmi_mode=4
+EOF
+
+    sudo systemctl daemon-reload || install_notdone
+}
+
+
 install_done() {
     echo
-    echo "Install completed, press any key to exit... "
+    echo "Install completed"
 }
 
 install_notdone() {
     echo
-    echo "Install failed, press any key to exit... "
+    echo "Install failed"
     exit 1  
 }
 
@@ -68,4 +84,5 @@ get_raspi2fb
 install_script
 udev_rules
 systemd_service
+display_settings
 install_done
