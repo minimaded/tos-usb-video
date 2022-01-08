@@ -47,7 +47,7 @@ systemd_service() {
 Description=HotSwap Toshiba DisplayLink Monitor
 
 [Service]
-ExecStart=/home/pi/tos-usb-video.sh
+ExecStart=/usr/lib/tos-usb-video/tos-usb-video.sh
 EOF
 
     sudo systemctl daemon-reload || install_notdone
