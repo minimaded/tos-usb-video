@@ -8,7 +8,7 @@ os_version() {
             echo
         ;;
         * )
-            echo "OS version is ${osversion} is not supported"
+            echo "OS version ${osversion} is not supported"
             echo
             install_notdone
         ;;
