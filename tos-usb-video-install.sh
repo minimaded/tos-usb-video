@@ -1,11 +1,27 @@
 #!/bin/bash
 
+os_version() {
+    osversion=$(cat /etc/os-release | grep VERSION_CODENAME | cut -f2 -d'=')
+    case "${os_version}" in
+        buster | bullseye)
+            echo "OS version is ${osversion}"
+            echo
+        ;;
+        *)
+            echo "OS version is ${osversion} is not supported"
+            echo
+            install_notdone
+        ;;
+    esac
+}
+
 get_raspi2fb() {
     echo "Installing raspi2fb..."
     echo
     sudo mkdir -p /usr/lib/tos-usb-video || install_notdone
-    sudo wget -O /usr/lib/tos-usb-video/raspi2fb https://github.com/minimaded/tos-usb-video/raw/main/raspi2fb || install_notdone
+    sudo wget -O "/usr/lib/tos-usb-video/raspi2fb-${osversion}" "https://github.com/minimaded/tos-usb-video/raw/main/raspi2fb-${osversion}" || install_notdone
     sudo chmod +x /usr/lib/tos-usb-video/raspi2fb || install_notdone
+    sudo ln -s "/usr/lib/tos-usb-video/raspi2fb-${osversion}" /usr/bin/raspi2fb
 }
 
 install_script() {
@@ -78,6 +94,7 @@ install_notdone() {
     exit 1  
 }
 
+os_version
 get_raspi2fb
 install_script
 udev_rules
