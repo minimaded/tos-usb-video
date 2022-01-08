@@ -3,6 +3,7 @@
 get_raspi2fb() {
     echo "Installing raspi2fb..."
     echo
+    sudo mkdir -p /usr/lib/tos-usb-video || install_notdone
     sudo wget -O /usr/lib/tos-usb-video/raspi2fb https://github.com/minimaded/tos-usb-video/raw/main/raspi2fb || install_notdone
     sudo chmod +x /usr/lib/tos-usb-video/raspi2fb || install_notdone
 }
