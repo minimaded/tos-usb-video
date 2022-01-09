@@ -27,7 +27,7 @@ stop_clean() {
     if /bin/pgrep -x "raspi2fb" 2>/dev/null ; then
         echo "Killing all raspi2fb processess"
         echo 
-        sudo (killall raspi2fb 2 > & 1) > /dev/null || install_notdone
+        (sudo killall raspi2fb 2 > & 1) > /dev/null || install_notdone
     fi
 }
 
