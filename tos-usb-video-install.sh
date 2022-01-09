@@ -18,13 +18,13 @@ os_version() {
 }
 
 stop_clean() {
-    if [ "$(/bin/systemctl is-active tos-usb-video.service)" = "active" ] ; then
-        echo "Stopping tos-usb-video.service"
-        echo
-        sudo /bin/systemctl stop tos-usb-video.service || install_notdone
-    fi
+    # if [ "$(/bin/systemctl is-active tos-usb-video.service)" = "active" ] ; then
+        # echo "Stopping tos-usb-video.service"
+        # echo
+        # sudo /bin/systemctl stop tos-usb-video.service || install_notdone
+    # fi
 
-    if [ sudo /bin/pgrep -x "raspi2fb" > /dev/null ] ; then
+    if [ "$(/bin/pgrep -x "raspi2fb" > /dev/null)" ] ; then
         echo "Killing all raspi2fb processess"
         echo 
         sudo killall raspi2fb || install_notdone
