@@ -18,7 +18,7 @@ os_version() {
 }
 
 stop_clean() {
-    if [ "$(/bin/systemctl is-active -q tos-usb-video.service)" ] ; then
+    if [ "$(/bin/systemctl is-active tos-usb-video.service)" = "active" ] ; then
         echo "Stopping tos-usb-video.service"
         echo
         sudo /bin/systemctl stop tos-usb-video.service || install_notdone
