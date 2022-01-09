@@ -34,7 +34,7 @@ stop_clean() {
 get_raspi2fb() {
     
     for i in {1..60}; do
-        if [ ping -c1 www.google.com &> /dev/null ] ; then
+        if [[ ping -c1 www.google.com &> /dev/null ]] ; then
             break
         else
             echo "Waiting for an internet connection..."
