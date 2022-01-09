@@ -18,13 +18,13 @@ os_version() {
 }
 
 stop_clean() {
-    if [ "$(/bin/systemctl is-active tos-usb-video.service)" = "active" ] ; then
+    if /bin/systemctl is-active -q tos-usb-video.service ; then
         echo "Stopping tos-usb-video.service"
         echo
         sudo /bin/systemctl stop tos-usb-video.service || install_notdone
     fi
 
-    if [ "$(/bin/pgrep -x "raspi2fb")" ] ; then
+    if /bin/pgrep -x "raspi2fb" ; then
         echo "Killing all raspi2fb processess"
         echo 
         sudo killall raspi2fb || install_notdone
@@ -34,13 +34,13 @@ stop_clean() {
 get_raspi2fb() {
     
     for i in {1..60}; do
-        if [[ ping -c1 www.google.com &> /dev/null ]] ; then
+        if ping -c1 www.google.com &> /dev/null ; then
             break
         else
             echo "Waiting for an internet connection..."
             sleep 1
         fi
-        if [ "${i}" > 59 ] ; then
+        if [ "${i}" -gt 59 ] ; then
             echo "Not connected to the internet..."
             echo
             install_notdone
