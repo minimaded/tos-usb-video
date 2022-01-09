@@ -49,7 +49,7 @@ ACTION=="add", SUBSYSTEM=="graphics", ATTRS{idVendor}=="17e9", ATTRS{idProduct}=
 EOF
 
     cat << EOF | sudo tee "/etc/udev/rules.d/99-tos-usb-video-remove.rules" >/dev/null || install_notdone
-ACTION=="remove", SUBSYSTEM=="graphics", ATTRS{idVendor}=="17e9", ATTRS{idProduct}=="03a6", SYMLINK+="tos-usb-video", RUN{program}="/bin/systemctl stop tos-usb-video.service"
+ACTION=="remove", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{PRODUCT}=="17e9/3a6*", RUN{program}="/bin/systemctl stop tos-usb-video.service"
 EOF
 
     sudo udevadm control --reload-rules || install_notdone
