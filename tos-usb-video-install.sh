@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eo pipefail
+
 os_version() {
     osversion=$(cat /etc/os-release | grep VERSION_CODENAME | cut -f2 -d'=')
     case "$osversion" in
@@ -92,20 +94,24 @@ EOF
 }
 
 install_done() {
-    echo
-    echo "Install completed"
+    read -r -p < /dev/tty "Install completed, reboot? [y/N] " response
+    case "$response" in
+        [yY][eE][sS]|[yY]) 
+            sudo reboot
+    esac
+    exit 0
 }
 
 install_notdone() {
     echo
-    echo "Install failed"
+    read -r -p < /dev/tty "Install failed, press any key to exit... " -n1 -s
     exit 1  
 }
 
 os_version
 get_raspi2fb
-install_script
-udev_rules
-systemd_service
-display_settings
-install_done
+# install_script
+# udev_rules
+# systemd_service
+# display_settings
+ install_done
