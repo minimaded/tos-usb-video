@@ -134,7 +134,7 @@ install_notdone() {
     echo
     read -r -p < /dev/tty "Install failed, press any key to exit... " -n1 -s
     echo
-    exit 1  
+    exit 1
 }
 
 os_version
