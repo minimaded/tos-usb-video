@@ -88,7 +88,6 @@ EOF
     then
         # comment out the parameter and reboot
         sudo sed -i -e "s/^dtoverlay=vc4-kms-v3d/#dtoverlay=vc4-kms-v3d/g" /boot/config.txt
-	reboot
     fi
 }
 
