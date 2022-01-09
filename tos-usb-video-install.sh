@@ -24,7 +24,7 @@ stop_clean() {
         sudo /bin/systemctl stop tos-usb-video.service || install_notdone
     fi
 
-    if /bin/pgrep -x -q "raspi2fb" ; then
+    if /bin/pgrep -x "raspi2fb" > /dev/null ; then
         echo "Killing all raspi2fb processess"
         echo 
         sudo killall -q raspi2fb || install_notdone
@@ -50,7 +50,7 @@ get_raspi2fb() {
     echo "Installing raspi2fb..."
     echo
     sudo mkdir -p /usr/lib/tos-usb-video || install_notdone
-    sudo wget -O "/usr/lib/tos-usb-video/raspi2fb-${osversion}" "https://github.com/minimaded/tos-usb-video/raw/main/raspi2fb-${osversion}" || install_notdone
+    sudo wget -O -q "/usr/lib/tos-usb-video/raspi2fb-${osversion}" "https://github.com/minimaded/tos-usb-video/raw/main/raspi2fb-${osversion}" || install_notdone
     sudo chmod +x "/usr/lib/tos-usb-video/raspi2fb-${osversion}" || install_notdone
     sudo ln -f -s "/usr/lib/tos-usb-video/raspi2fb-${osversion}" /usr/bin/raspi2fb || install_notdone
 }
