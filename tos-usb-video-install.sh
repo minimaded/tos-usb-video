@@ -49,7 +49,7 @@ ACTION=="add", SUBSYSTEM=="graphics", ATTRS{idVendor}=="17e9", ATTRS{idProduct}=
 EOF
 
     cat << EOF | sudo tee "/etc/udev/rules.d/99-tos-usb-video-remove.rules" >/dev/null || install_notdone
-ACTION=="add", SUBSYSTEM=="graphics", ATTRS{idVendor}=="17e9", ATTRS{idProduct}=="03a6", SYMLINK+="tos-usb-video", RUN{program}="/bin/systemctl start tos-usb-video.service"
+ACTION=="add", SUBSYSTEM=="graphics", ATTRS{idVendor}=="17e9", ATTRS{idProduct}=="03a6", SYMLINK+="tos-usb-video", RUN{program}="/bin/systemctl stop tos-usb-video.service"
 EOF
 
     sudo udevadm control --reload-rules || install_notdone
@@ -79,8 +79,16 @@ gpu_mem_1024=256
 hdmi_force_hotplug=1
 hdmi_group=1
 hdmi_mode=4
+[EDID=*]
+hdmi_group=0
 EOF
 
+    if [ $(egrep -c "^dtoverlay=vc4-kms-v3d" /boot/config.txt) -gt 0 ]
+    then
+        # comment out the parameter and reboot
+        sudo sed -i -e "s/^dtoverlay=vc4-kms-v3d/#dtoverlay=vc4-kms-v3d/g" /boot/config.txt
+	reboot
+    fi
 }
 
 install_done() {
