@@ -32,6 +32,8 @@ stop_clean() {
 
 get_raspi2fb() {
     echo "test2"
+	
+	
     for i in {1..60}; do
         if ping -c1 www.gooddddddgle.com &>/dev/null ; then
             break
