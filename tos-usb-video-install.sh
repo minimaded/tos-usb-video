@@ -81,6 +81,7 @@ hdmi_group=1
 hdmi_mode=4
 [EDID=*]
 hdmi_group=0
+[ALL]
 EOF
 
     if [ $(egrep -c "^dtoverlay=vc4-kms-v3d" /boot/config.txt) -gt 0 ]
