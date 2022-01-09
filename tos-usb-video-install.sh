@@ -23,19 +23,17 @@ stop_clean() {
         echo
         sudo /bin/systemctl stop tos-usb-video.service || install_notdone
     fi
-echo "test2"
-echo "test"
-    if /bin/pgrep -x "raspi2fb" > /dev/null ; then
+    if /bin/pgrep -x "raspi2fb" >/dev/null ; then
         echo "Killing all raspi2fb processess"
         echo 
-        sudo killall -w raspi2fb &> /dev/null || install_notdone
+        sudo killall -w raspi2fb || install_notdone
     fi
 }
 
 get_raspi2fb() {
     
     for i in {1..60}; do
-        if ping -c1 www.google.com &> /dev/null ; then
+        if ping -c1 www.google.com &>/dev/null ; then
             break
         else
             echo "Waiting for an internet connection..."
