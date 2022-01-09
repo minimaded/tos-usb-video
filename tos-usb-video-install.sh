@@ -23,7 +23,7 @@ stop_clean() {
         echo
         sudo /bin/systemctl stop tos-usb-video.service || install_notdone
     fi
-
+echo "test"
     if /bin/pgrep -x "raspi2fb" > /dev/null ; then
         echo "Killing all raspi2fb processess"
         echo 
